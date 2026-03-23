@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catalogue - BookNomad</title>
+  <link rel="stylesheet" href="styleCatalogue.css">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+            <img src="logo.png" width="10%" height="10%">
+            <h1>BookNomad</h1>
+        </div>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="Connexion.html">Connexion</a>
+      <a href="Inscription.html">Inscription</a>
+      <a href=""></a>
+    </nav>
+  </header>
+  <section class="class1">
+    <div class="class1-text">
+      <h1>Catalogue</h1>
+      <p>
+        Découvrez des livres, filtrez par catégorie, recherchez un titre
+        et ajoutez vos favoris.
+      </p>
+    </div>
+
+    <div class="class1-search">
+      <input type="text" id="searchInput" placeholder="Rechercher un livre (titre / auteur)..." />
+      <select id="categorySelect">
+        <option value="all">Toutes les catégories</option>
+        <option value="roman">Roman</option>
+        <option value="science">Science</option>
+        <option value="histoire">Histoire</option>
+        <option value="fantasy">Fantasy</option>
+        <option value="dev">Informatique</option>
+      </select>
+
+      <div class="class2">
+        <button type="button" class="btn active" data-filter="all">Tout</button>
+        <button type="button" class="btn" data-filter="top">Top</button>
+        <button type="button" class="btn" data-filter="new">Nouveautés</button>
+        <button type="button" class="btn" data-filter="free">Gratuits</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="class3">
+    <div class="stat">
+      <div class="num" id="countAll">0</div>
+      <div class="label">Livres</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="countShown">0</div>
+      <div class="label">Affichés</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="countFav">0</div>
+      <div class="label">Favoris</div>
+    </div>
+  </section>
+
+  
+  <main class="class4" id="booksGrid">
+    <article class="card" data-title="L'Écho des dunes" data-author="S. Amari" data-category="roman" data-tag="top">
+      <div class="badge">Top</div>
+      <div class="cover">
+        <div class="cover-art">📖</div>
+      </div>
+      <div class="info">
+        <h3>L'Écho des dunes</h3>
+        <p class="meta">S. Amari • Roman</p>
+        <p class="desc">
+          Un voyage poétique à travers le désert, entre secrets anciens et destinées croisées.
+        </p>
+        <div class="actions">
+          <button class="btn" type="button">Voir</button>
+          <button class="btn ghost favBtn" type="button" aria-label="Ajouter aux favoris">♡</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-title="Micro-mondes" data-author="N. Lemaire" data-category="science" data-tag="new">
+      <div class="badge new">Nouveau</div>
+      <div class="cover"><div class="cover-art">🧪</div></div>
+      <div class="info">
+        <h3>Micro-mondes</h3>
+        <p class="meta">N. Lemaire • Science</p>
+        <p class="desc">
+          Comprendre l’invisible : bactéries, cellules et mystères du vivant expliqués simplement.
+        </p>
+        <div class="actions">
+          <button class="btn" type="button">Voir</button>
+          <button class="btn ghost favBtn" type="button">♡</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-title="Chroniques d'Argile" data-author="M. Rami" data-category="histoire" data-tag="free">
+      <div class="badge free">Gratuit</div>
+      <div class="cover"><div class="cover-art">🏛️</div></div>
+      <div class="info">
+        <h3>Chroniques d'Argile</h3>
+        <p class="meta">M. Rami • Histoire</p>
+        <p class="desc">
+          Des tablettes antiques aux empires oubliés : une plongée vivante dans l’histoire.
+        </p>
+        <div class="actions">
+          <button class="btn" type="button">Voir</button>
+          <button class="btn ghost favBtn" type="button">♡</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-title="La Forêt des Lunes" data-author="E. Sora" data-category="fantasy" data-tag="top">
+      <div class="badge">Top</div>
+      <div class="cover"><div class="cover-art">🌙</div></div>
+      <div class="info">
+        <h3>La Forêt des Lunes</h3>
+        <p class="meta">E. Sora • Fantasy</p>
+        <p class="desc">
+          Une aventure magique où chaque clairière cache un pacte, et chaque étoile un secret.
+        </p>
+        <div class="actions">
+          <button class="btn" type="button">Voir</button>
+          <button class="btn ghost favBtn" type="button">♡</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-title="HTML & CSS Zen" data-author="K. Bensaïd" data-category="dev" data-tag="new">
+      <div class="badge new">Nouveau</div>
+      <div class="cover"><div class="cover-art">💻</div></div>
+      <div class="info">
+        <h3>HTML & CSS Zen</h3>
+        <p class="meta">K. Bensaïd • Informatique</p>
+        <p class="desc">
+          Apprenez à créer des pages modernes et propres avec des astuces simples et efficaces.
+        </p>
+        <div class="actions">
+          <button class="btn" type="button">Voir</button>
+          <button class="btn ghost favBtn" type="button">♡</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-title="Les Villes Silencieuses" data-author="A. Kamel" data-category="roman" data-tag="free">
+      <div class="badge free">Gratuit</div>
+      <div class="cover"><div class="cover-art">🏙️</div></div>
+      <div class="info">
+        <h3>Les Villes Silencieuses</h3>
+        <p class="meta">A. Kamel • Roman</p>
+        <p class="desc">
+          Une enquête douce-amère dans une ville où les mots disparaissent… un par un.
+        </p>
+        <div class="actions">
+          <button class="btn" type="button">Voir</button>
+          <button class="btn ghost favBtn" type="button">♡</button>
+        </div>
+      </div>
+    </article>
+
+  </main>
+  <footer class="footer">
+    <p>© 2026 BookNomad • Catalogue dynamique</p>
+  </footer>
+</body>
+</html>
