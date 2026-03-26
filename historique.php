@@ -1,4 +1,4 @@
-<?php require("config.php");?>
+<?php require("config.php"); ?>
 
 <!DOCTYPE html>
 <html>
@@ -34,6 +34,11 @@
         }
         ?>
     </table>
+    <a href="catalogue.php" style="text-decoration:none;">
+    <button type="button" style="background:gray; color:white;">
+        ⬅ Retour
+    </button>
+</a>
 </div>
 
 </body>

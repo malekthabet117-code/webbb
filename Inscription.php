@@ -1,4 +1,4 @@
-<?php require("config.php");?>
+<?php require("config.php"); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -16,9 +16,9 @@
             <h1>BookNomad</h1>
         </div>
     <nav>
-        <a href="index.html">Accueil</a>
-        <a href="catalogue.html">Catalogue</a>
-        <a href="Connexion.html">Connexion</a>
+        <a href="index.php">Accueil</a>
+        <a href="catalogue.php">Catalogue</a>
+        <a href="Connexion.php">Connexion</a>
     </nav>
 </header>
 
@@ -35,40 +35,48 @@
 </div>
 
     <div class="right">
-        <form>
+        <form method="POST">
             <h2>Créer un compte</h2>
+
             <?php
     if(isset($_POST['register'])){
         $nom = $_POST['nom'];
         $prenom = $_POST['prenom'];
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $role = $_POST['role'];
 
-        $sql = "INSERT INTO utilisateurs (nom,prenom, email, password)
-                VALUES ('$nom','$prenom', '$email','$password')";
-
+        $sql = "INSERT INTO utilisateurs (nom, prenom, email, password,role)
+VALUES ('$nom', '$prenom', '$email', '$password','$role')";
+echo "Inscription réussie ✅";
         if($conn->query($sql)){
-            echo "<p style='color:green;'>Compte créé !</p>";
-        } else {
-            echo "Erreur: " . $conn->error;
-        }
+    header("Location: catalogue.php");
+    exit();
+} else {
+    echo "Erreur: " . $conn->error;
+}
     }
     ?>
             
-            <input type="text" placeholder="Nom d'utilisateur">
-            <input type="text" placeholder="Prenom d'utilisateur">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Mot de passe">
+            <input type="text" name="nom" placeholder="Nom d'utilisateur">
+            <input type="text" name="prenom" placeholder="Prenom d'utilisateur">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Mot de passe">
+            <label>Rôle :</label><br>
 
+<input type="radio" name="role" value="user" checked> User
+<input type="radio" name="role" value="admin"> Admin
             <div class="checkbox">
                 <input type="checkbox">J’accepte le règlement intérieur de la bibliothèque <br>
                 <input type="checkbox">J’accepte les conditions d’emprunt et de retour
+
+
             </div>
 
-            <button type="submit">S'inscrire</button><br>
+            <button type="submit" name="register">S'inscrire</button><br>
 
             <p class="login">
-                Déjà un compte ? <a href="Connexion.html">Se connecter</a>
+                Déjà un compte ? <a href="Connexion.php">Se connecter</a>
             </p>
             
         </form>

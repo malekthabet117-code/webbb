@@ -1,25 +1,32 @@
 <?php 
-require("config.php"); 
-
-$id = $_GET['id'];
+require("config.php");
 session_start();
-$user_id = $_SESSION['user_id'];
 
-if(isset($_POST['emprunter'])){
-    $sql = "INSERT INTO emprunts (utilisateur_id, livre_id, date_emprunt)
-            VALUES ($user_id, $id, NOW())";
-
-    $conn->query($sql);
-
-    // rendre livre indisponible
-    $conn->query("UPDATE livres SET disponible = FALSE WHERE id = $id");
-
-    echo "<p style='color:green;'>Livre emprunté !</p>";
+if(!isset($_SESSION['user_id'])){
+    header("Location: Connexion.php");
+    exit();
 }
 
+$user_id = $_SESSION['user_id'];
+$id = $_GET['id'];
+
+// récupérer livre
 $sql = "SELECT * FROM livres WHERE id = $id";
 $result = $conn->query($sql);
 $livre = $result->fetch_assoc();
+
+// envoyer demande
+if(isset($_POST['emprunter'])){
+
+    $sql = "INSERT INTO emprunts (utilisateur_id, livre_id, date_emprunt)
+            VALUES ($user_id, $id, NOW())";
+
+    if($conn->query($sql)){
+        echo "<p style='color:orange;'>Demande envoyée ! </p>";
+    } else {
+        echo "Erreur: " . $conn->error;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,14 +47,18 @@ $livre = $result->fetch_assoc();
         <p>Statut: <?php echo $livre['disponible'] ? "Disponible" : "Indisponible"; ?></p>
 
         <?php if($livre['disponible']): ?>
-        <form method="post">
-            <button name="emprunter" class="btn">Emprunter</button>
-        </form>
-        <?php else: ?>
-            <p style="color:red;">Non disponible</p>
-        <?php endif; ?>
-
+<form method="post">
+    <button name="emprunter">Envoyer une demande</button>
+</form>
+<?php else: ?>
+<p>Indisponible</p>
+<?php endif; ?>
     </div>
+    <a href="catalogue.php" style="text-decoration:none;">
+    <button type="button" style="background:gray; color:white;">
+        ⬅ Retour
+    </button>
+</a>
 </div>
 
 </body>

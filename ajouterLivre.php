@@ -17,8 +17,8 @@
         $auteur = $_POST["auteur"];
         $description = $_POST["description"];
 
-        $sql = "INSERT INTO livres (titre, auteur, description, disponible)
-                VALUES ('$titre', '$auteur', '$description', TRUE)";
+        $sql = "INSERT INTO livres (titre, auteur, description, statut)
+                VALUES ('$titre', '$auteur', '$description', diponible)";
 
         if($conn->query($sql)){
             echo "<p style='color:green;'>Livre ajouté !</p>";
@@ -34,6 +34,11 @@
         <textarea name="description" placeholder="Description"></textarea>
         <button class="btn">Ajouter</button>
     </form>
+    <a href="catalogue.php" style="text-decoration:none;">
+    <button type="button" style="background:gray; color:white;">
+        ⬅ Retour
+    </button>
+</a>
 </div>
 
 </body>

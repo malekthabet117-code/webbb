@@ -19,9 +19,9 @@ require("config.php");
             <h1 id="id2">BookNomad</h1>
         </div>
     <nav>
-        <a href="index.html">Accueil</a>
-        <a href="catalogue.html">Catalogue</a>
-        <a href="Inscription.html">Inscription</a>
+        <a href="index.php">Accueil</a>
+        <a href="catalogue.php">Catalogue</a>
+        <a href="Inscription.php">Inscription</a>
     </nav>
 </header>
 
@@ -37,32 +37,45 @@ require("config.php");
 </div>
 
     <div class="right">
-        <form>
+        <form method="POST">
             <h2>Connexion à votre compte </h2>
              <?php
-    if(isset($_POST['login'])){
-        $email = $_POST['email'];
-        $pass = $_POST['password'];
+if(isset($_POST['login'])){
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
 
-        $sql = "SELECT * FROM utilisateurs WHERE email='$email' AND mot_de_passe='$pass'";
-        $result = $conn->query($sql);
+    // 🔐 sécurisé (prepared statement)
+    $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE email=? AND password=?");
+    $stmt->bind_param("ss", $email, $pass);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        if($result->num_rows > 0){
-            $user = $result->fetch_assoc();
+    if($result->num_rows > 0){
+        $user = $result->fetch_assoc();
 
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['nom'] = $user['nom'];
+        // ✅ sessions
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['nom'] = $user['nom'];
+        $_SESSION['role'] = $user['role'];
 
-            header("Location: catalogue.php");
+        // 🔥 redirection حسب role
+        if($user['role'] == 'admin'){
+            header("Location: admin.php");
         } else {
-            echo "<p style='color:red;'>Email ou mot de passe incorrect</p>";
+            header("Location: catalogue.php");
         }
+        exit();
+
+    } else {
+        echo "<p style='color:red;'>Email ou mot de passe incorrect ❌</p>";
     }
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Mot de passe">
-            <button type="submit">Se Connecter</button>
+}
+?>
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Mot de passe">
+            <button type="submit" name="login">Se connecter</button>
             <p class="login">
-                Pas encore un compte ? <a href="Inscription.html">S'inscrire</a>
+                Pas encore un compte ? <a href="Inscription.php">S'inscrire</a>
             </p>
         </form>
     </div>
